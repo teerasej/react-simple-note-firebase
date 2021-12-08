@@ -6,6 +6,7 @@
 
 import React, { useState } from 'react'
 import { useFormik } from 'formik';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 
 export default function SignInView() {
 
@@ -16,8 +17,14 @@ export default function SignInView() {
             email: '',
             password: ''
         },
-        onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
+        onSubmit: async values => {
+            try {
+                const auth = getAuth()
+                const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password)
+                console.log('User:', userCredential.user)
+            } catch (error) {
+                alert(JSON.stringify(error, null, 2));
+            }
         },
     });
 
