@@ -5,33 +5,53 @@
 
 
 import React, { useState } from 'react'
-
+import { useFormik } from 'formik';
 
 export default function SignInView() {
 
     const [isRequestRegister, setIsRequestRegister] = useState(false)
 
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: ''
+        },
+        onSubmit: values => {
+            alert(JSON.stringify(values, null, 2));
+        },
+    });
+
     return (
-        <div>
-            {
-                isRequestRegister ?
-                <h1>Register</h1>
-                : <h1>Sign in</h1>
-            }
+        <form onSubmit={formik.handleSubmit}>
             <div>
-                <label>Email:</label>
-                <input/>
+                {
+                    isRequestRegister ?
+                        <h1>Register</h1>
+                        : <h1>Sign in</h1>
+                }
+                <div>
+                    <label>Email:</label>
+                    <input id="email"
+                        name="email"
+                        type="email"
+                        onChange={formik.handleChange}
+                        value={formik.values.email} />
+                </div>
+                <div>
+                    <label>Password:</label>
+                    <input id="password"
+                        name="password"
+                        type="password"
+                        onChange={formik.handleChange}
+                        value={formik.values.password} />
+                </div>
+                {
+                    isRequestRegister ?
+                        <button type="submit">Register</button>
+                        : <button type="submit">Sign in</button>
+                }
+
             </div>
-            <div>
-                <label>Password:</label>
-                <input/>
-            </div>
-            {
-                isRequestRegister ?
-                <button>Register</button>
-                : <button>Sign in</button>
-            }
-            
-        </div>
+        </form>
     )
 }
