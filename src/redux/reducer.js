@@ -6,7 +6,7 @@
 import ActionType from './actions'
 
 const initialState = {
-
+    userSignedIn: false
 }
 
 export default (state = initialState, { type, payload }) => {
