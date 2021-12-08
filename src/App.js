@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { getAuth } from "firebase/auth";
 import firebaseApp from "./firebaseConfig"
+import SignInView from './components/SignInView';
 
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
       {
         auth.currentUser ? 
           <div>Hello</div>
-          : <div>Please sign in</div>
+          : <SignInView/>
       }
     </div>
   );
