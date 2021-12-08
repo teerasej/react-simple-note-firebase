@@ -7,10 +7,13 @@
 import React, { useState } from 'react'
 import { useFormik } from 'formik';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import actions from '../redux/actions';
+import { useDispatch } from 'react-redux';
 
 export default function SignInView() {
 
     const [isRequestRegister, setIsRequestRegister] = useState(false)
+    const dispatch = useDispatch()
 
     const formik = useFormik({
         initialValues: {
@@ -22,6 +25,11 @@ export default function SignInView() {
                 const auth = getAuth()
                 const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password)
                 console.log('User:', userCredential.user)
+                dispatch({
+                    type: actions.USER_SIGNED_IN,
+                    payload: true
+                })
+                
             } catch (error) {
                 alert(JSON.stringify(error, null, 2));
             }

@@ -13,7 +13,7 @@ export default (state = initialState, { type, payload }) => {
     switch (type) {
 
     case ActionType.USER_SIGNED_IN:
-        return { ...state, ...payload }
+        return { ...state, userSignedIn: payload }
 
     default:
         return state
